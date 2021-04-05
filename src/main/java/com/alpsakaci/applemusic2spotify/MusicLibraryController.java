@@ -23,8 +23,9 @@ public class MusicLibraryController {
 	@PostMapping
 	@RequestMapping("/uploadLibrary")
 	void handleLibraryFileUpload(@RequestParam("libraryFile") MultipartFile file) {
-		List<Track> tracks = libraryParseService.getTracks(file);
+		List<Track> tracks = libraryParseService.getTrackList(file);
 		System.out.println(tracks.size());
+		
 	}
 
 	@GetMapping
