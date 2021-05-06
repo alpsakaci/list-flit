@@ -1,4 +1,4 @@
-package com.alpsakaci.applemusic2spotify;
+package com.alpsakaci.applemusic2spotify.applemusic;
 
 public class Track {
 

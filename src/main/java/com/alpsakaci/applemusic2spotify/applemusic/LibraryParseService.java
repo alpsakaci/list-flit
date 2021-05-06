@@ -1,4 +1,4 @@
-package com.alpsakaci.applemusic2spotify;
+package com.alpsakaci.applemusic2spotify.applemusic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,6 @@ public class LibraryParseService {
 		}
 
 		Track track = new Track(id, name, artist, album);
-		System.out.println(track.toString());
 
 		return track;
 	}

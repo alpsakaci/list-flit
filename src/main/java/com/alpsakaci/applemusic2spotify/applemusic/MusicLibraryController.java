@@ -1,4 +1,4 @@
-package com.alpsakaci.applemusic2spotify;
+package com.alpsakaci.applemusic2spotify.applemusic;
 
 import java.util.List;
 
@@ -23,6 +23,11 @@ public class MusicLibraryController {
 	@RequestMapping("/uploadLibrary")
 	void handleLibraryFileUpload(@RequestParam("libraryFile") MultipartFile file) {
 		List<Track> tracks = libraryParseService.getTrackList(file);
+		
+		for(Track track: tracks) {
+			System.out.println(track);
+		}
+		
 		System.out.println(tracks.size());
 		
 	}
