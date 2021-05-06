@@ -4,24 +4,29 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@RestController
+@Controller
 @EnableAutoConfiguration
-@RequestMapping("/")
+@RequestMapping("/library")
 public class MusicLibraryController {
 
 	@Autowired
 	private LibraryParseService libraryParseService;
+	
+	@GetMapping
+	String library() {
+		return "applemusic/uploadLibraryForm";
+	}
 
 
 	@PostMapping
-	@RequestMapping("/uploadLibrary")
-	void handleLibraryFileUpload(@RequestParam("libraryFile") MultipartFile file) {
+	String handleLibraryFileUpload(@RequestParam("libraryFile") MultipartFile file) {
 		List<Track> tracks = libraryParseService.getTrackList(file);
 		
 		for(Track track: tracks) {
@@ -30,6 +35,7 @@ public class MusicLibraryController {
 		
 		System.out.println(tracks.size());
 		
+		return "applemusic/listTracks";
 	}
 
 }
