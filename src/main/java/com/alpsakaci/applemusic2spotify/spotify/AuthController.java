@@ -12,20 +12,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
 @RequestMapping(value = "/auth")
 public class AuthController {
-	
+
 	@Autowired
 	private SpotifyApiService spotifyApiService;
-	
-	private String redirectUrl = SpotifyApiConfig.redirectUrl + "?response_type=code" + "&client_id="
-			+ SpotifyApiConfig.clientId + "&redirect_uri=" + SpotifyApiConfig.redirectUri + "&scope=user-library-read";
+	private SpotifyApiConfig spotifyApiConfig;
+
+	public AuthController(SpotifyApiConfig spotifyApiConfig) {
+		this.spotifyApiConfig = spotifyApiConfig;
+	}
 
 	@GetMapping
 	void login(HttpServletResponse res) throws IOException {
-		res.setHeader("Location", redirectUrl);
+		res.setHeader("Location", spotifyApiConfig.getRedirectUrl());
 		res.setStatus(302);
 	}
 
@@ -40,13 +41,13 @@ public class AuthController {
 			res.setStatus(302);
 		} else {
 			Map<String, String> token = spotifyApiService.getAccessToken(authCode);
-			
+
 			Cookie accessToken = new Cookie("access_token", token.get("access_token"));
 			accessToken.setMaxAge(3600);
-			
+
 			Cookie refreshToken = new Cookie("refesh_token", token.get("refresh_token"));
 			refreshToken.setMaxAge(3600);
-			
+
 			res.addCookie(accessToken);
 			res.addCookie(refreshToken);
 			res.setHeader("Location", "/library");
@@ -54,5 +55,5 @@ public class AuthController {
 		}
 
 	}
-	
+
 }

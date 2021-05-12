@@ -6,9 +6,10 @@ public class Track {
 	private String name;
 	private String artist;
 	private String album;
-	
-	public Track() {}
-	
+
+	public Track() {
+	}
+
 	public Track(int id, String name, String artist, String album) {
 		this.id = id;
 		this.name = name;
@@ -52,5 +53,5 @@ public class Track {
 	public String toString() {
 		return "Track [id=" + id + ", name=" + name + ", artist=" + artist + ", album=" + album + "]";
 	}
-	
+
 }

@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileSystemStorageService implements StorageService {
 
 	private final Path rootLocation;
-	
+
 	@Autowired
 	public FileSystemStorageService(StorageProperties storageProperties) {
 		this.rootLocation = Paths.get(storageProperties.getLocation());
@@ -32,20 +32,16 @@ public class FileSystemStorageService implements StorageService {
 			if (file.isEmpty()) {
 				throw new StorageException("Failed to store empty file.");
 			}
-			Path destinationFile = this.rootLocation.resolve(
-					Paths.get(file.getOriginalFilename()))
-					.normalize().toAbsolutePath();
+			Path destinationFile = this.rootLocation.resolve(Paths.get(file.getOriginalFilename())).normalize()
+					.toAbsolutePath();
 			if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
 				// This is a security check
-				throw new StorageException(
-						"Cannot store file outside current directory.");
+				throw new StorageException("Cannot store file outside current directory.");
 			}
 			try (InputStream inputStream = file.getInputStream()) {
-				Files.copy(inputStream, destinationFile,
-					StandardCopyOption.REPLACE_EXISTING);
+				Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
 			}
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new StorageException("Failed to store file.", e);
 		}
 	}
@@ -53,11 +49,9 @@ public class FileSystemStorageService implements StorageService {
 	@Override
 	public Stream<Path> loadAll() {
 		try {
-			return Files.walk(this.rootLocation, 1)
-				.filter(path -> !path.equals(this.rootLocation))
-				.map(this.rootLocation::relativize);
-		}
-		catch (IOException e) {
+			return Files.walk(this.rootLocation, 1).filter(path -> !path.equals(this.rootLocation))
+					.map(this.rootLocation::relativize);
+		} catch (IOException e) {
 			throw new StorageException("Failed to read stored files", e);
 		}
 
@@ -75,14 +69,11 @@ public class FileSystemStorageService implements StorageService {
 			Resource resource = new UrlResource(file.toUri());
 			if (resource.exists() || resource.isReadable()) {
 				return resource;
-			}
-			else {
-				throw new StorageFileNotFoundException(
-						"Could not read file: " + filename);
+			} else {
+				throw new StorageFileNotFoundException("Could not read file: " + filename);
 
 			}
-		}
-		catch (MalformedURLException e) {
+		} catch (MalformedURLException e) {
 			throw new StorageFileNotFoundException("Could not read file: " + filename, e);
 		}
 	}
@@ -96,8 +87,7 @@ public class FileSystemStorageService implements StorageService {
 	public void init() {
 		try {
 			Files.createDirectories(rootLocation);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new StorageException("Could not initialize storage", e);
 		}
 	}
