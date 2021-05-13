@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("singleton")
-public class SpotifyApiConfig {
+public class SpotifyApiConstants {
 
 	private final String userPlaylistsUrl = "https://api.spotify.com/v1/me/playlists";
 

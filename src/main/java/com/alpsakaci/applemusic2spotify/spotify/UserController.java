@@ -1,4 +1,4 @@
-package com.alpsakaci.applemusic2spotify;
+package com.alpsakaci.applemusic2spotify.spotify;
 
 import java.util.Collections;
 import java.util.Map;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
-	
+
 	@RequestMapping("/user")
 	public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
 		return Collections.singletonMap("name", principal.getAttribute("display_name"));
 	}
-	
+
 }
