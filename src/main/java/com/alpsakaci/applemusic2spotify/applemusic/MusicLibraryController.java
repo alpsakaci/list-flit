@@ -26,14 +26,10 @@ public class MusicLibraryController {
 	@PostMapping
 	String handleLibraryFileUpload(@RequestParam("libraryFile") MultipartFile file, Model model) {
 		List<Track> tracks = libraryParseService.getTrackList(file);
-
-		for (Track track : tracks) {
-			System.out.println(track);
-		}
-
-		System.out.println(tracks.size());
+		List<Playlist> playlists = libraryParseService.getPlaylists(file);
 
 		model.addAttribute("tracks", tracks);
+		model.addAttribute("playlists", playlists);
 
 		return "applemusic/listTracks";
 	}

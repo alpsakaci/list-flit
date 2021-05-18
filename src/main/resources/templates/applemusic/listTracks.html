@@ -23,7 +23,7 @@
 			</div>
 			<div class="col-6 mx-auto">
 				<h5>Playlists</h5>
-				X items.
+				<span th:text="${playlists.size}"></span> items.
 				<button type="button" class="btn btn-primary btn-sm">Select all</button>
 				<button type="button" class="btn btn-danger btn-sm">Remove all</button>
 		</div>
@@ -35,17 +35,9 @@
 				</div>
 			</div>
 			<div class="col-6 mx-auto" style="height: 400px; overflow-y: scroll;">
-				<div class="form-check">
+				<div class="form-check" th:each="playlist : ${playlists}">
 					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">Playlist name</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">Playlist name</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">Playlist name</label>
+					<label class="form-check-label" for="flexCheckDefault" th:text="${playlist.name} + ' | ' + ${playlist.getPlaylistItems.size} + ' tracks.'" >checkbox</label>
 				</div>
 			</div>
 		</div>
