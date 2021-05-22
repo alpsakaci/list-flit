@@ -1,8 +1,9 @@
 package com.alpsakaci.applemusic2spotify.applemusic;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -161,15 +162,15 @@ public class LibraryParseService {
 		return playlists;
 	}
 
-	public List<Track> getTrackList(MultipartFile file) {
+	public Map<Integer, Track> getTracks(MultipartFile file) {
 		NodeList trackNodes = getTracksNode(file).getChildNodes();
-		// TODO: impl appropriate data type
-		List<Track> tracks = new ArrayList<Track>();
+		Map<Integer, Track> tracks = new HashMap<Integer, Track>();
 
 		for (int i = 0; i < trackNodes.getLength(); i++) {
 			Node currentNode = trackNodes.item(i);
 			if (currentNode.getNodeType() == Node.ELEMENT_NODE && currentNode.getNodeName().equals("dict")) {
-				tracks.add(createTrack(currentNode));
+				Track track = createTrack(currentNode);
+				tracks.put(track.getId(), track);
 			}
 		}
 

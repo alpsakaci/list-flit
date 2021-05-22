@@ -1,6 +1,7 @@
 package com.alpsakaci.applemusic2spotify.applemusic;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,10 +26,10 @@ public class MusicLibraryController {
 
 	@PostMapping
 	String handleLibraryFileUpload(@RequestParam("libraryFile") MultipartFile file, Model model) {
-		List<Track> tracks = libraryParseService.getTrackList(file);
+		Map<Integer, Track> tracks = libraryParseService.getTracks(file);
 		List<Playlist> playlists = libraryParseService.getPlaylists(file);
 
-		model.addAttribute("tracks", tracks);
+		model.addAttribute("tracks", tracks.values());
 		model.addAttribute("playlists", playlists);
 
 		return "applemusic/listTracks";
