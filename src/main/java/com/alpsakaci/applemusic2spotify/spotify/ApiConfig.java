@@ -11,9 +11,9 @@ import org.springframework.web.context.annotation.RequestScope;
 
 @Configuration
 public class ApiConfig {
-	
+
 	private SpotifyApiConstants apiConstants;
-	
+
 	public ApiConfig(SpotifyApiConstants apiConstants) {
 		this.apiConstants = apiConstants;
 	}
