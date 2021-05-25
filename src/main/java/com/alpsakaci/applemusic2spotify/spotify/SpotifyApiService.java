@@ -2,6 +2,9 @@ package com.alpsakaci.applemusic2spotify.spotify;
 
 import com.alpsakaci.applemusic2spotify.spotify.model.CreatePlaylistDto;
 import com.alpsakaci.applemusic2spotify.spotify.model.Playlist;
+import com.alpsakaci.applemusic2spotify.spotify.model.SearchTrackResponse;
+import com.alpsakaci.applemusic2spotify.spotify.model.Track;
+import com.alpsakaci.applemusic2spotify.spotify.model.TracksResponse;
 import com.alpsakaci.applemusic2spotify.spotify.model.User;
 
 public class SpotifyApiService extends ApiBinding {
@@ -17,6 +20,19 @@ public class SpotifyApiService extends ApiBinding {
 		User user = this.restTemplate.getForObject(spotifyApiConstants.getUserProfileUrl(), User.class);
 
 		return user;
+	}
+
+	public Track searchTrack(String trackName) {
+		SearchTrackResponse response = this.restTemplate
+				.getForObject(spotifyApiConstants.getSearchTrackUrl() + trackName, SearchTrackResponse.class);
+
+		TracksResponse tracksResponse = response.getTracks();
+
+		if (tracksResponse.getItems().length != 0) {
+			return tracksResponse.getItems()[0];
+		}
+
+		return null;
 	}
 
 	public Playlist createPlaylist(String name) {
