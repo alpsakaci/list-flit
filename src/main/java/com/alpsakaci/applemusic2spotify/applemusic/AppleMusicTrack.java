@@ -1,13 +1,13 @@
 package com.alpsakaci.applemusic2spotify.applemusic;
 
-public class Track {
+public class AppleMusicTrack {
 
 	private int id;
 	private String name;
 	private String artist;
 	private String album;
 
-	public Track(int id, String name, String artist, String album) {
+	public AppleMusicTrack(int id, String name, String artist, String album) {
 		this.id = id;
 		this.name = name;
 		this.artist = artist;
@@ -28,6 +28,11 @@ public class Track {
 
 	public String getAlbum() {
 		return album;
+	}
+
+	public String buildQueryString() {
+		String query = name + " " + artist + " " + album;
+		return query.replaceAll(" ", "+");
 	}
 
 	@Override

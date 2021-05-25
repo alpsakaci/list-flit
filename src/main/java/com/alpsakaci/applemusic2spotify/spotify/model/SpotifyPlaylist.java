@@ -1,6 +1,6 @@
 package com.alpsakaci.applemusic2spotify.spotify.model;
 
-public class Playlist {
+public class SpotifyPlaylist {
 
 	private String id;
 	private String href;

@@ -1,6 +1,6 @@
 package com.alpsakaci.applemusic2spotify.spotify.model;
 
-public class Track {
+public class SpotifyTrack {
 
 	private String id;
 	private String name;
@@ -28,6 +28,11 @@ public class Track {
 
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	@Override
+	public String toString() {
+		return "SpotifyTrack [id=" + id + ", name=" + name + ", uri=" + uri + "]";
 	}
 
 }

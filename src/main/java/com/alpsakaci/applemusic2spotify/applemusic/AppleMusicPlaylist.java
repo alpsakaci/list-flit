@@ -3,13 +3,13 @@ package com.alpsakaci.applemusic2spotify.applemusic;
 import java.util.List;
 import java.util.LinkedList;
 
-public class Playlist {
+public class AppleMusicPlaylist {
 
 	private int id;
 	private String name;
 	private List<Integer> playlistItems = new LinkedList<Integer>();
 
-	public Playlist(int id, String name) {
+	public AppleMusicPlaylist(int id, String name) {
 		this.id = id;
 		this.name = name;
 	}

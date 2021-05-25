@@ -69,7 +69,7 @@ public class LibraryParseService {
 		return null;
 	}
 
-	private Track createTrack(Node trackNode) {
+	private AppleMusicTrack createTrack(Node trackNode) {
 		int id = -1;
 		String name = "";
 		String artist = "";
@@ -97,12 +97,12 @@ public class LibraryParseService {
 			}
 		}
 
-		Track track = new Track(id, name, artist, album);
+		AppleMusicTrack track = new AppleMusicTrack(id, name, artist, album);
 
 		return track;
 	}
 
-	private Playlist createPlaylist(Node playlistsNode) {
+	private AppleMusicPlaylist createPlaylist(Node playlistsNode) {
 		int id = -1;
 		String name = "";
 		NodeList playlists = playlistsNode.getChildNodes();
@@ -126,7 +126,7 @@ public class LibraryParseService {
 			}
 		}
 
-		Playlist playlist = new Playlist(id, name);
+		AppleMusicPlaylist playlist = new AppleMusicPlaylist(id, name);
 
 		for (int i = 0; i < playlistItems.getLength(); i++) {
 			NodeList dict = playlistItems.item(i).getChildNodes();
@@ -148,9 +148,9 @@ public class LibraryParseService {
 		return playlist;
 	}
 
-	public List<Playlist> getPlaylists(MultipartFile file) {
+	public List<AppleMusicPlaylist> getPlaylists(MultipartFile file) {
 		NodeList playlistNodes = getPlaylistsNode(file).getChildNodes();
-		List<Playlist> playlists = new LinkedList<Playlist>();
+		List<AppleMusicPlaylist> playlists = new LinkedList<AppleMusicPlaylist>();
 
 		for (int i = 0; i < playlistNodes.getLength(); i++) {
 			Node currentNode = playlistNodes.item(i);
@@ -162,14 +162,14 @@ public class LibraryParseService {
 		return playlists;
 	}
 
-	public Map<Integer, Track> getTracks(MultipartFile file) {
+	public Map<Integer, AppleMusicTrack> getTracks(MultipartFile file) {
 		NodeList trackNodes = getTracksNode(file).getChildNodes();
-		Map<Integer, Track> tracks = new HashMap<Integer, Track>();
+		Map<Integer, AppleMusicTrack> tracks = new HashMap<Integer, AppleMusicTrack>();
 
 		for (int i = 0; i < trackNodes.getLength(); i++) {
 			Node currentNode = trackNodes.item(i);
 			if (currentNode.getNodeType() == Node.ELEMENT_NODE && currentNode.getNodeName().equals("dict")) {
-				Track track = createTrack(currentNode);
+				AppleMusicTrack track = createTrack(currentNode);
 				tracks.put(track.getId(), track);
 			}
 		}

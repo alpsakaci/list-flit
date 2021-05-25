@@ -1,6 +1,6 @@
 package com.alpsakaci.applemusic2spotify.spotify.model;
 
-public class Image {
+public class SpotifyImage {
 
 	private String url;
 	private int height;

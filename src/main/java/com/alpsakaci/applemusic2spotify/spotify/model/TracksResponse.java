@@ -2,13 +2,13 @@ package com.alpsakaci.applemusic2spotify.spotify.model;
 
 public class TracksResponse {
 
-	private Track[] items;
+	private SpotifyTrack[] items;
 
-	public Track[] getItems() {
+	public SpotifyTrack[] getItems() {
 		return items;
 	}
 
-	public void setItems(Track[] items) {
+	public void setItems(SpotifyTrack[] items) {
 		this.items = items;
 	}
 

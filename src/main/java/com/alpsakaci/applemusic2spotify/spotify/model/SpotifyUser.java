@@ -1,9 +1,9 @@
 package com.alpsakaci.applemusic2spotify.spotify.model;
 
-public class User {
+public class SpotifyUser {
 
 	private String displayName;
-	private Image[] images;
+	private SpotifyImage[] images;
 
 	public String getDisplayName() {
 		return displayName;
@@ -13,11 +13,11 @@ public class User {
 		this.displayName = displayName;
 	}
 
-	public Image[] getImages() {
+	public SpotifyImage[] getImages() {
 		return images;
 	}
 
-	public void setImages(Image[] images) {
+	public void setImages(SpotifyImage[] images) {
 		this.images = images;
 	}
 
