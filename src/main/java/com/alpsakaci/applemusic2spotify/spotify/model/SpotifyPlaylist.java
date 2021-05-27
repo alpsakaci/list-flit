@@ -30,4 +30,9 @@ public class SpotifyPlaylist {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "SpotifyPlaylist [id=" + id + ", href=" + href + ", name=" + name + "]";
+	}
+
 }

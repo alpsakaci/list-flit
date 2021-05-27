@@ -1,7 +1,10 @@
 package com.alpsakaci.applemusic2spotify.spotify.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 public class SpotifyUser {
 
+	@JsonAlias(value = "display_name")
 	private String displayName;
 	private SpotifyImage[] images;
 
