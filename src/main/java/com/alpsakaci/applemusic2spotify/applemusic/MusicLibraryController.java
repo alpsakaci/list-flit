@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,15 +28,32 @@ public class MusicLibraryController {
 
 	@PostMapping
 	LibraryDto handleLibraryFileUpload(@RequestParam("libraryFile") MultipartFile file) {
-		Map<Integer, AppleMusicTrack> tracks = libraryParseService.getTracks(file);
+		List<AppleMusicTrack> tracks = libraryParseService.getTracks(file);
 		List<AppleMusicPlaylist> playlists = libraryParseService.getPlaylists(file);
 
-		LibraryDto dto = new LibraryDto();
-		List<AppleMusicTrack> trackslist = new LinkedList<AppleMusicTrack>(tracks.values());
-		dto.setPlaylists(playlists);
-		dto.setTrakcs(trackslist);
+		return new LibraryDto(tracks, playlists);
+	}
 
-		return dto;
+	@PostMapping("/import")
+	LibraryDto importToSpotify(@RequestBody LibraryDto library) {
+		Map<Integer, AppleMusicTrack> appleTracksMap = libraryParseService.convertListToMap(library.getTracks());
+
+		for (AppleMusicPlaylist applePlaylist : library.getPlaylists()) {
+			SpotifyPlaylist spotifyPlaylist = apiService.createPlaylist(applePlaylist.getName());
+			List<SpotifyTrack> spotifyTracks = new LinkedList<SpotifyTrack>();
+
+			for (Integer trackId : applePlaylist.getPlaylistItems()) {
+				AppleMusicTrack appleTrack = appleTracksMap.get(trackId);
+				SpotifyTrack spotifyTrack = apiService.searchTrack(appleTrack.buildQueryString());
+				if (spotifyTrack != null) {
+					spotifyTracks.add(spotifyTrack);
+				}
+			}
+
+			apiService.addItemsToPlaylist(spotifyPlaylist, spotifyTracks);
+		}
+
+		return library;
 	}
 
 }

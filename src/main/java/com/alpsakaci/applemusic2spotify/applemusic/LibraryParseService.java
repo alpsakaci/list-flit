@@ -162,19 +162,28 @@ public class LibraryParseService {
 		return playlists;
 	}
 
-	public Map<Integer, AppleMusicTrack> getTracks(MultipartFile file) {
+	public List<AppleMusicTrack> getTracks(MultipartFile file) {
 		NodeList trackNodes = getTracksNode(file).getChildNodes();
-		Map<Integer, AppleMusicTrack> tracks = new HashMap<Integer, AppleMusicTrack>();
+		List<AppleMusicTrack> tracks = new LinkedList<AppleMusicTrack>();
 
 		for (int i = 0; i < trackNodes.getLength(); i++) {
 			Node currentNode = trackNodes.item(i);
 			if (currentNode.getNodeType() == Node.ELEMENT_NODE && currentNode.getNodeName().equals("dict")) {
-				AppleMusicTrack track = createTrack(currentNode);
-				tracks.put(track.getId(), track);
+				tracks.add(createTrack(currentNode));
 			}
 		}
 
 		return tracks;
+	}
+
+	public Map<Integer, AppleMusicTrack> convertListToMap(List<AppleMusicTrack> trackList) {
+		Map<Integer, AppleMusicTrack> tracksMap = new HashMap<Integer, AppleMusicTrack>();
+
+		for (AppleMusicTrack track : trackList) {
+			tracksMap.put(track.getId(), track);
+		}
+
+		return tracksMap;
 	}
 
 }

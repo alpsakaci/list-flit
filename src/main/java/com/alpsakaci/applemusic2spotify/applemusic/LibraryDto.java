@@ -4,15 +4,20 @@ import java.util.List;
 
 public class LibraryDto {
 
-	private List<AppleMusicTrack> trakcs;
+	private List<AppleMusicTrack> tracks;
 	private List<AppleMusicPlaylist> playlists;
 
-	public List<AppleMusicTrack> getTrakcs() {
-		return trakcs;
+	public LibraryDto(List<AppleMusicTrack> tracks, List<AppleMusicPlaylist> playlists) {
+		this.tracks = tracks;
+		this.playlists = playlists;
 	}
 
-	public void setTrakcs(List<AppleMusicTrack> trakcs) {
-		this.trakcs = trakcs;
+	public List<AppleMusicTrack> getTracks() {
+		return tracks;
+	}
+
+	public void setTracks(List<AppleMusicTrack> trakcs) {
+		this.tracks = trakcs;
 	}
 
 	public List<AppleMusicPlaylist> getPlaylists() {
