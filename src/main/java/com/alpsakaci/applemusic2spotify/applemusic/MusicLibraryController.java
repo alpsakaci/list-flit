@@ -56,4 +56,23 @@ public class MusicLibraryController {
 		return library;
 	}
 
+	@PostMapping("importPlaylist")
+	PlaylistItemsDto importPlaylistToSpotify(@RequestBody PlaylistItemsDto applePlaylist) {
+		Map<Integer, AppleMusicTrack> appleTracksMap = libraryParseService.convertListToMap(applePlaylist.getTracks());
+		SpotifyPlaylist spotifyPlaylist = apiService.createPlaylist(applePlaylist.getPlaylist().getName());
+		List<SpotifyTrack> spotifyTracks = new LinkedList<SpotifyTrack>();
+
+		for (Integer trackId : applePlaylist.getPlaylist().getPlaylistItems()) {
+			AppleMusicTrack appleTrack = appleTracksMap.get(trackId);
+			SpotifyTrack spotifyTrack = apiService.searchTrack(appleTrack.buildQueryString());
+			if (spotifyTrack != null) {
+				spotifyTracks.add(spotifyTrack);
+			}
+		}
+
+		apiService.addItemsToPlaylist(spotifyPlaylist, spotifyTracks);
+
+		return applePlaylist;
+	}
+
 }
