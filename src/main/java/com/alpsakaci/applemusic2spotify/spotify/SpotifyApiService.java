@@ -58,11 +58,23 @@ public class SpotifyApiService extends ApiBinding {
 		return new URIsDto(uris);
 	}
 
-	public Object addItemsToPlaylist(SpotifyPlaylist playlist, List<SpotifyTrack> tracks) {
-		URIsDto uris = createURIs(tracks);
+	public void addItemsToPlaylist(SpotifyPlaylist playlist, List<SpotifyTrack> tracks) {
 
-		return this.restTemplate.postForObject("https://api.spotify.com/v1/playlists/" + playlist.getId() + "/tracks",
-				uris, Object.class);
+		if (tracks.size() > 100) {
+			List<List<SpotifyTrack>> partitions = Partition.ofSize(tracks, 100);
+
+			for (List<SpotifyTrack> subList : partitions) {
+				URIsDto uris = createURIs(subList);
+				this.restTemplate.postForObject("https://api.spotify.com/v1/playlists/" + playlist.getId() + "/tracks",
+						uris, Object.class);
+			}
+
+		} else {
+			URIsDto uris = createURIs(tracks);
+			this.restTemplate.postForObject("https://api.spotify.com/v1/playlists/" + playlist.getId() + "/tracks",
+					uris, Object.class);
+		}
+
 	}
 
 }
