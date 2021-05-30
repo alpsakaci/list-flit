@@ -1,7 +1,14 @@
 package com.alpsakaci.applemusic2spotify.spotify;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.alpsakaci.applemusic2spotify.applemusic.LibraryParseService;
+import com.alpsakaci.applemusic2spotify.applemusic.model.AppleMusicTrack;
+import com.alpsakaci.applemusic2spotify.applemusic.model.PlaylistItemsDto;
 import com.alpsakaci.applemusic2spotify.spotify.model.CreatePlaylistDto;
 import com.alpsakaci.applemusic2spotify.spotify.model.SpotifyPlaylist;
 import com.alpsakaci.applemusic2spotify.spotify.model.SearchTrackResponse;
@@ -11,6 +18,9 @@ import com.alpsakaci.applemusic2spotify.spotify.model.URIsDto;
 import com.alpsakaci.applemusic2spotify.spotify.model.SpotifyUser;
 
 public class SpotifyApiService extends ApiBinding {
+	
+	@Autowired
+	private LibraryParseService libraryParseService;
 
 	private SpotifyApiConstants spotifyApiConstants;
 
@@ -75,6 +85,22 @@ public class SpotifyApiService extends ApiBinding {
 					uris, Object.class);
 		}
 
+	}
+	
+	public void importPlaylist(PlaylistItemsDto applePlaylist) {
+		Map<Integer, AppleMusicTrack> appleTracksMap = libraryParseService.convertListToMap(applePlaylist.getTracks());
+		SpotifyPlaylist spotifyPlaylist = this.createPlaylist(applePlaylist.getPlaylist().getName());
+		List<SpotifyTrack> spotifyTracks = new LinkedList<SpotifyTrack>();
+
+		for (Integer trackId : applePlaylist.getPlaylist().getPlaylistItems()) {
+			AppleMusicTrack appleTrack = appleTracksMap.get(trackId);
+			SpotifyTrack spotifyTrack = this.searchTrack(appleTrack.buildQueryString());
+			if (spotifyTrack != null) {
+				spotifyTracks.add(spotifyTrack);
+			}
+		}
+
+		this.addItemsToPlaylist(spotifyPlaylist, spotifyTracks);
 	}
 
 }

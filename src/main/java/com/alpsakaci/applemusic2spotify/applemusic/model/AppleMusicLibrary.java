@@ -1,13 +1,13 @@
-package com.alpsakaci.applemusic2spotify.applemusic;
+package com.alpsakaci.applemusic2spotify.applemusic.model;
 
 import java.util.List;
 
-public class LibraryDto {
+public class AppleMusicLibrary {
 
 	private List<AppleMusicTrack> tracks;
 	private List<AppleMusicPlaylist> playlists;
 
-	public LibraryDto(List<AppleMusicTrack> tracks, List<AppleMusicPlaylist> playlists) {
+	public AppleMusicLibrary(List<AppleMusicTrack> tracks, List<AppleMusicPlaylist> playlists) {
 		this.tracks = tracks;
 		this.playlists = playlists;
 	}

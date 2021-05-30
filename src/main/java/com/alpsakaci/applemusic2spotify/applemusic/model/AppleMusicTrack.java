@@ -1,4 +1,4 @@
-package com.alpsakaci.applemusic2spotify.applemusic;
+package com.alpsakaci.applemusic2spotify.applemusic.model;
 
 public class AppleMusicTrack {
 
