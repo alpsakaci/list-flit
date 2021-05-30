@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.alpsakaci</groupId>
-	<artifactId>apple-music-to-spotify</artifactId>
+	<artifactId>list-flit</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>apple-music-to-spotify</name>
-	<description>Playlist migration from Apple Music to Spotify</description>
+	<name>listflit</name>
+	<description>Playlist migration tool</description>
 	<properties>
 		<java.version>16</java.version>
 	</properties>
