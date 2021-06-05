@@ -12,7 +12,7 @@
 	<groupId>com.alpsakaci</groupId>
 	<artifactId>list-flit</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>listflit</name>
+	<name>List Flit</name>
 	<description>Playlist migration tool</description>
 	<properties>
 		<java.version>16</java.version>

@@ -1,6 +1,6 @@
 package com.alpsakaci.listflit.spotify.model;
 
-public class TracksResponse {
+public class SpotifyTracksDto {
 
 	private SpotifyTrack[] items;
 

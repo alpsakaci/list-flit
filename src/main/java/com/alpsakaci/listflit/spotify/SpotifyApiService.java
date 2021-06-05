@@ -10,11 +10,11 @@ import com.alpsakaci.listflit.applemusic.LibraryParseService;
 import com.alpsakaci.listflit.applemusic.model.AppleMusicTrack;
 import com.alpsakaci.listflit.applemusic.model.PlaylistItemsDto;
 import com.alpsakaci.listflit.spotify.model.CreatePlaylistDto;
-import com.alpsakaci.listflit.spotify.model.SearchTrackResponse;
+import com.alpsakaci.listflit.spotify.model.SearchTrackDto;
 import com.alpsakaci.listflit.spotify.model.SpotifyPlaylist;
 import com.alpsakaci.listflit.spotify.model.SpotifyTrack;
 import com.alpsakaci.listflit.spotify.model.SpotifyUser;
-import com.alpsakaci.listflit.spotify.model.TracksResponse;
+import com.alpsakaci.listflit.spotify.model.SpotifyTracksDto;
 import com.alpsakaci.listflit.spotify.model.URIsDto;
 
 public class SpotifyApiService extends ApiBinding {
@@ -36,10 +36,10 @@ public class SpotifyApiService extends ApiBinding {
 	}
 
 	public SpotifyTrack searchTrack(String trackName) {
-		SearchTrackResponse response = this.restTemplate
-				.getForObject(spotifyApiConstants.getSearchTrackUrl() + trackName, SearchTrackResponse.class);
+		SearchTrackDto response = this.restTemplate
+				.getForObject(spotifyApiConstants.getSearchTrackUrl() + trackName, SearchTrackDto.class);
 
-		TracksResponse tracksResponse = response.getTracks();
+		SpotifyTracksDto tracksResponse = response.getTracks();
 
 		if (tracksResponse.getItems().length != 0) {
 			return tracksResponse.getItems()[0];
