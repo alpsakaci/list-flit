@@ -33,7 +33,7 @@ public class ApiConfig {
 			}
 		}
 
-		return new SpotifyApiService(accessToken, apiConstants);
+		return new SpotifyApiServiceImpl(accessToken, apiConstants);
 	}
 
 }
