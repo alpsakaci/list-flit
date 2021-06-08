@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
 <meta charset="UTF-8">
 <title>List Flit</title>
@@ -8,48 +8,31 @@
 	rel="stylesheet"
 	integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0"
 	crossorigin="anonymous">
+<link href="main.css" rel="stylesheet">
 </head>
-<body>
-	<div class="container p-5">
-		<div class="row my-4 text-center">
+
+
+<body class="d-flex h-100 text-center text-white bg-dark img-background">
+
+	<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+		<main class="px-3 mt-auto">
 			<h1>List Flit</h1>
-		</div>
-		
-		<div class="col-3 mx-auto">
-			<a class="btn btn-success w-100 m-3 text-decoration-none text-white"
-				href="/oauth2/authorization/spotify">Log in </a>
-		</div>
+			<p class="lead">Move your Apple Music library to Spotify.</p>
+			<p class="lead">
+				<a href="/oauth2/authorization/spotify"
+					class="btn btn-lg btn-secondary fw-bold border-white bg-white">Log
+					in with Spotify</a>
+			</p>
+		</main>
 
-		<div class="col-3 mx-auto">
-			<a class="btn btn-success w-100 m-3 text-decoration-none text-white"
-				href="/library">Library </a>
-		</div>
-		
-		<div class="col-3 mx-auto">
-			<a class="btn btn-success w-100 m-3 text-decoration-none text-white"
-				href="/me">Me</a>
-		</div>
-		
-		<div class="col-3 mx-auto">
-			<a class="btn btn-success w-100 m-3 text-decoration-none text-white"
-				href="/user">User</a>
-		</div>
+		<footer class="mt-auto text-white-50">
+			<p>
+				2021 - <a href="https://alpsakaci.com/" class="text-white">Alp
+					Sakaci</a>
+			</p>
+		</footer>
 
-
-		<div class="row my-4">
-			<div class="col-5 mx-auto">
-				<h4>How to use?</h4>
-				<ol>
-					<li>Open Music app and export your library.<br>(File ->
-						Library -> Export Library)
-					</li>
-					<li>Log in to the system with your Spotify account.</li>
-					<li>Upload your Library.xml file.</li>
-					<li>Select the playlists/tracks you want to import.</li>
-					<li>Click the 'Import Selections' button.</li>
-				</ol>
-			</div>
-		</div>
 	</div>
 
 	<script
