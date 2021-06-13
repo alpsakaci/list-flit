@@ -46,7 +46,7 @@ class AppleLibraryUploadForm extends React.Component {
 
 	handleSubmit(event) {
 		const formData = new FormData();
-	    formData.append('libraryFile', this.state.file)
+		formData.append('libraryFile', this.state.file)
 
 		let res = fetch('/library', {
 			mode: 'no-cors',

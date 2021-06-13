@@ -58,6 +58,7 @@ body {
 .img-background {
 	background-image: url("../img/indexbg.jpg");
 	background-size: cover;
+	background-attachment: fixed;
 }
 
 @media ( min-width : 768px) {
