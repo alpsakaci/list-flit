@@ -10,11 +10,11 @@ import com.alpsakaci.listflit.spotify.model.SpotifyUser;
 public class SpotifyApiController {
 
 	@Autowired
-	private SpotifyApiService apiService;
+	private SpotifyApiService spotifyApi;
 
 	@GetMapping("/me")
 	SpotifyUser me() {
-		return apiService.me();
+		return spotifyApi.me();
 	}
 
 }

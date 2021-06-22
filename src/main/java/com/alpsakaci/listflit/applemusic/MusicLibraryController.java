@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alpsakaci.listflit.applemusic.model.AppleMusicLibrary;
 import com.alpsakaci.listflit.applemusic.model.PlaylistItemsDto;
-import com.alpsakaci.listflit.spotify.SpotifyApiService;
+import com.alpsakaci.listflit.migrator.SpotifyMigrator;
 
 @RestController
 @RequestMapping("/library")
@@ -18,9 +18,9 @@ public class MusicLibraryController {
 
 	@Autowired
 	private LibraryParseService libraryParseService;
-
+	
 	@Autowired
-	private SpotifyApiService spotifyApiService;
+	private SpotifyMigrator spotifyMigrator;
 
 	@PostMapping
 	AppleMusicLibrary handleLibraryFileUpload(@RequestParam("libraryFile") MultipartFile file) {
@@ -29,7 +29,8 @@ public class MusicLibraryController {
 
 	@PostMapping("importPlaylist")
 	PlaylistItemsDto importPlaylist(@RequestBody PlaylistItemsDto applePlaylist) {
-		spotifyApiService.importPlaylist(applePlaylist);
+		spotifyMigrator.migratePlaylist(applePlaylist.getPlaylist(), applePlaylist.getTracks());
+
 		return applePlaylist;
 	}
 

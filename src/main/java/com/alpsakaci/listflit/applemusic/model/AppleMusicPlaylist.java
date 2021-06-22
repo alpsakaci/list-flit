@@ -1,9 +1,15 @@
 package com.alpsakaci.listflit.applemusic.model;
 
 import java.util.List;
+import java.util.Map;
+
+import com.alpsakaci.listflit.Playlist;
+import com.alpsakaci.listflit.Track;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 
-public class AppleMusicPlaylist {
+public class AppleMusicPlaylist implements Playlist {
 
 	private int id;
 	private String name;
@@ -14,10 +20,12 @@ public class AppleMusicPlaylist {
 		this.name = name;
 	}
 
-	public int getId() {
+	@Override
+	public Integer getId() {
 		return id;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -26,6 +34,7 @@ public class AppleMusicPlaylist {
 		playlistItems.add(trackId);
 	}
 
+	@Override
 	public List<Integer> getPlaylistItems() {
 		return playlistItems;
 	}
@@ -33,6 +42,19 @@ public class AppleMusicPlaylist {
 	@Override
 	public String toString() {
 		return "Playlist [id=" + id + ", name=" + name + ", itemCount=" + playlistItems.size() + "]";
+	}
+
+	@Override
+	public Map<Integer, Track> getItemsMap(List<?> trackList) {
+		Map<Integer, Track> tracksMap = new HashMap<Integer, Track>();
+		@SuppressWarnings("unchecked")
+		List<Track> tracks = (List<Track>) trackList;
+		
+		for (Track track : tracks) {
+			tracksMap.put((Integer) track.getId(), track);
+		}
+
+		return tracksMap;
 	}
 
 }

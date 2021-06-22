@@ -1,6 +1,8 @@
 package com.alpsakaci.listflit.spotify.model;
 
-public class SpotifyTrack {
+import com.alpsakaci.listflit.Track;
+
+public class SpotifyTrack implements Track {
 
 	private String id;
 	private String name;
@@ -33,6 +35,18 @@ public class SpotifyTrack {
 	@Override
 	public String toString() {
 		return "SpotifyTrack [id=" + id + ", name=" + name + ", uri=" + uri + "]";
+	}
+
+	@Override
+	public String getAlbum() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getArtist() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

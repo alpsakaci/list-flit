@@ -1,14 +1,7 @@
 package com.alpsakaci.listflit.spotify;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.alpsakaci.listflit.applemusic.LibraryParseService;
-import com.alpsakaci.listflit.applemusic.model.AppleMusicTrack;
-import com.alpsakaci.listflit.applemusic.model.PlaylistItemsDto;
 import com.alpsakaci.listflit.spotify.model.CreatePlaylistDto;
 import com.alpsakaci.listflit.spotify.model.SearchTrackDto;
 import com.alpsakaci.listflit.spotify.model.SpotifyPlaylist;
@@ -18,9 +11,6 @@ import com.alpsakaci.listflit.spotify.model.SpotifyUser;
 import com.alpsakaci.listflit.spotify.model.URIsDto;
 
 public class SpotifyApiServiceImpl extends ApiBinding implements SpotifyApiService {
-
-	@Autowired
-	private LibraryParseService libraryParseService;
 
 	private SpotifyApiConstants spotifyApiConstants;
 
@@ -35,8 +25,8 @@ public class SpotifyApiServiceImpl extends ApiBinding implements SpotifyApiServi
 		return user;
 	}
 
-	public SpotifyTrack searchTrack(String trackName) {
-		SearchTrackDto response = this.restTemplate.getForObject(spotifyApiConstants.getSearchTrackUrl() + trackName,
+	public SpotifyTrack searchTrack(String query) {
+		SearchTrackDto response = this.restTemplate.getForObject(spotifyApiConstants.getSearchTrackUrl() + query,
 				SearchTrackDto.class);
 
 		SpotifyTracksDto tracksResponse = response.getTracks();
@@ -87,19 +77,4 @@ public class SpotifyApiServiceImpl extends ApiBinding implements SpotifyApiServi
 
 	}
 
-	public void importPlaylist(PlaylistItemsDto applePlaylist) {
-		Map<Integer, AppleMusicTrack> appleTracksMap = libraryParseService.convertListToMap(applePlaylist.getTracks());
-		SpotifyPlaylist spotifyPlaylist = this.createPlaylist(applePlaylist.getPlaylist().getName());
-		List<SpotifyTrack> spotifyTracks = new LinkedList<SpotifyTrack>();
-
-		for (Integer trackId : applePlaylist.getPlaylist().getPlaylistItems()) {
-			AppleMusicTrack appleTrack = appleTracksMap.get(trackId);
-			SpotifyTrack spotifyTrack = this.searchTrack(appleTrack.buildQueryString());
-			if (spotifyTrack != null) {
-				spotifyTracks.add(spotifyTrack);
-			}
-		}
-
-		this.addItemsToPlaylist(spotifyPlaylist, spotifyTracks);
-	}
 }
