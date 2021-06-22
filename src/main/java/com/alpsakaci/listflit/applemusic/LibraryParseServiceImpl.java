@@ -1,9 +1,7 @@
 package com.alpsakaci.listflit.applemusic;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -188,17 +186,6 @@ public class LibraryParseServiceImpl implements LibraryParseService {
 		List<AppleMusicPlaylist> playlists = this.getPlaylists(file);
 
 		return new AppleMusicLibrary(tracks, playlists);
-	}
-
-	@Override
-	public Map<Integer, AppleMusicTrack> convertListToMap(List<AppleMusicTrack> trackList) {
-		Map<Integer, AppleMusicTrack> tracksMap = new HashMap<Integer, AppleMusicTrack>();
-
-		for (AppleMusicTrack track : trackList) {
-			tracksMap.put(track.getId(), track);
-		}
-
-		return tracksMap;
 	}
 
 }

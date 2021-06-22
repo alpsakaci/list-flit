@@ -1,7 +1,6 @@
 package com.alpsakaci.listflit.applemusic;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +15,5 @@ public interface LibraryParseService {
 	List<AppleMusicTrack> getTracks(MultipartFile file);
 
 	AppleMusicLibrary parseLibrary(MultipartFile file);
-
-	Map<Integer, AppleMusicTrack> convertListToMap(List<AppleMusicTrack> trackList);
 
 }
