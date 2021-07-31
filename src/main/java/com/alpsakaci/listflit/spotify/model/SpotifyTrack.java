@@ -8,6 +8,7 @@ public class SpotifyTrack implements Track {
 	private String name;
 	private String uri;
 
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -16,6 +17,7 @@ public class SpotifyTrack implements Track {
 		this.id = id;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -33,11 +35,6 @@ public class SpotifyTrack implements Track {
 	}
 
 	@Override
-	public String toString() {
-		return "SpotifyTrack [id=" + id + ", name=" + name + ", uri=" + uri + "]";
-	}
-
-	@Override
 	public String getAlbum() {
 		// TODO Auto-generated method stub
 		return null;
@@ -47,6 +44,11 @@ public class SpotifyTrack implements Track {
 	public String getArtist() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String toString() {
+		return "SpotifyTrack [id=" + id + ", name=" + name + ", uri=" + uri + "]";
 	}
 
 }
