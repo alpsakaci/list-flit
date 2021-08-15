@@ -145,7 +145,7 @@
 	<script th:inline="javascript">
 		
 		function getCheckedTracks() {
-			var items = []
+			var items = [];
 			var trackCheckboxes = document.querySelectorAll('.track-check');   
 	        for (var i = 0; i < trackCheckboxes.length; i++) {   
 	            if (trackCheckboxes[i].checked == true) {
@@ -155,10 +155,9 @@
 	        
 	        return items;
 		}
-		
+			
 		function getSinglesList() {
 			var singleTracks = getCheckedTracks();
-			console.log(singleTracks);
 			
 			return {
 				"id" : -1,
@@ -166,9 +165,40 @@
 				"playlistItems": singleTracks
 			};
 		}
+		
+		function getCheckedPlaylistIds() {
+			var items = [];
+			var playlistCheckboxes = document.querySelectorAll('.playlist-check');
+			for (var i = 0; i < playlistCheckboxes.length; i++) {
+				if (playlistCheckboxes[i].checked == true) {
+					items.push(playlistCheckboxes[i].id);
+				}
+			}
+			
+			return items;
+		}
+		
+		function getCheckedPlaylists(playlistIds) {
+			var items = [];
+			/*<![CDATA[*/
+			var playlists = [[${playlists}]];
+
+			for (var i = 0; i < playlistIds.length; i++) {
+				for (var j = 0; j< playlists.length; j++) {
+					if (playlistIds[i] == playlists[j].id) {
+						items.push(playlists[j]);
+						continue;
+					}
+				} 
+			}
+			
+			return items;
+			/*]]>*/
+		}
 	
 		function importPlaylists() {
 			/*<![CDATA[*/
+				// get singles
 				var tracks = [[${tracks}]];
 				var singlesPlaylist = getSinglesList();
 				var payload = {
@@ -176,16 +206,32 @@
 					"playlist" : singlesPlaylist
 				};
 				
+				// post singles	
 				$.ajax({
-				  type: "POST",
-				  url: "/library/importPlaylist",
-				  contentType: "application/json; charset=utf-8",
-				  data: JSON.stringify(payload)
+					type: "POST",
+					 url: "/library/importPlaylist",
+					 contentType: "application/json; charset=utf-8",
+					 data: JSON.stringify(payload)
 				});
 				
+				// get playlists
+				var checkedPlaylistIds = getCheckedPlaylistIds();
+				var playlists = getCheckedPlaylists(checkedPlaylistIds);
 				
-				
-				
+				// post playlists
+				for (var i = 0; i < playlists.length; i++) {
+					var payload = {
+						"tracks" : tracks,
+						"playlist" : playlists[i]
+					};
+					console.log(payload);
+					$.ajax({
+						  type: "POST",
+						  url: "/library/importPlaylist",
+						  contentType: "application/json; charset=utf-8",
+						  data: JSON.stringify(payload)
+					});
+				}
 			/*]]>*/ 
 		}
 	</script>
