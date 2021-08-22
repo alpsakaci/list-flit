@@ -12,6 +12,10 @@ function getCheckedTracks() {
 
 function getSinglesList() {
 	var singleTracks = getCheckedTracks();
+	
+	if (singleTracks.length == 0) {
+		return null;
+	}
 
 	return {
 		"id": -1,

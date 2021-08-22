@@ -131,6 +131,23 @@
 			</div>
 
 		</div>
+
+		<!-- Loading Modal -->
+		<div class="modal fade" id="loadingModal" data-bs-backdrop="static"
+			data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body p-4">
+						<div class="d-flex justify-content-center mt-4">
+							<div class="spinner-border" role="status"></div>
+						</div>
+						<p class="text-center mt-4">Importing...</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</main>
 
 	<footer class="mt-auto text-white text-center text-shadow">
@@ -172,18 +189,23 @@
 		}
 
 		function importPlaylists() {
+			var loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'), {
+  				keyboard: false
+			});
+			
 			/*<![CDATA[*/
-			// get singles
 			var tracks = [[${ tracks }]];
-			var singlesPlaylist = getSinglesList();
 
-			// get playlists
 			var checkedPlaylistIds = getCheckedPlaylistIds();
 			var playlists = getCheckedPlaylists(checkedPlaylistIds);
-			playlists.push(singlesPlaylist);
-
-			// post playlists
+			
+			var singlesPlaylist = getSinglesList();
+			if (singlesPlaylist != null) {
+				playlists.push(singlesPlaylist);	
+			}
+			
 			for (var i = 0; i < playlists.length; i++) {
+				loadingModal.show();
 				var payload = {
 					"tracks": tracks,
 					"playlist": playlists[i]
@@ -194,6 +216,8 @@
 					url: "/library/importPlaylist",
 					contentType: "application/json; charset=utf-8",
 					data: JSON.stringify(payload)
+				}).done(function() {
+				  loadingModal.hide();
 				});
 			}
 			/*]]>*/
