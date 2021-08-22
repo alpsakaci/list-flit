@@ -41,7 +41,7 @@
 	</nav>
 
 
-	<main class="flex-shrink-0 p-2 mt-auto">
+	<main class="flex-shrink-0 mt-auto">
 		<div id="" class="w-100">
 
 			<div class="container">
@@ -53,6 +53,10 @@
 								<h5 class="card-title">Playlists</h5>
 								<h6 class="card-subtitle mb-2 text-muted"
 									th:text="${#lists.size(playlists)} + ' items.'"></h6>
+
+								<input id="playlistSearchInput" onkeyup="searchPlaylist()"
+									class="w-100 form-control" placeholder="Search Playlist" />
+
 								<table class="table table-hover mb-0">
 									<thead>
 										<tr>
@@ -63,7 +67,7 @@
 									</thead>
 								</table>
 								<div class="listLibrary">
-									<table class="table table-hover">
+									<table id="playlistsTable" class="table table-hover">
 										<tbody>
 											<tr th:each="playlist: ${playlists}">
 												<th><input class="form-check-input playlist-check"
@@ -85,7 +89,11 @@
 							<div class="card-body">
 								<h5 class="card-title">Tracks</h5>
 								<h6 class="card-subtitle mb-2 text-muted"
-									th:text="${#lists.size(tracks)} + ' items.'"> </h6>
+									th:text="${#lists.size(tracks)} + ' items.'"></h6>
+
+								<input id="trackSearchInput" onkeyup="searchTrack()"
+									class="w-100 form-control" placeholder="Search Track" />
+
 								<table class="table table-hover mb-0">
 									<thead>
 										<tr>
@@ -97,7 +105,7 @@
 									</thead>
 								</table>
 								<div class="listLibrary">
-									<table class="table table-hover">
+									<table id="tracksTable" class="table table-hover">
 										<tbody>
 											<tr th:each="track: ${tracks}">
 												<th><input class="form-check-input track-check"
@@ -143,6 +151,7 @@
 		crossorigin="anonymous"></script>
 	<script src="js/getUserProfile.js"></script>
 	<script src="js/musicLibrary.js"></script>
+	<script src="js/tableSearch.js"></script>
 	<script th:inline="javascript">
 		function getCheckedPlaylists(playlistIds) {
 			var items = [];
