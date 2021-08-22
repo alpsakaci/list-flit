@@ -205,7 +205,6 @@
 			}
 			
 			for (var i = 0; i < playlists.length; i++) {
-				loadingModal.show();
 				var payload = {
 					"tracks": tracks,
 					"playlist": playlists[i]
@@ -215,9 +214,12 @@
 					type: "POST",
 					url: "/library/importPlaylist",
 					contentType: "application/json; charset=utf-8",
-					data: JSON.stringify(payload)
+					data: JSON.stringify(payload),
+					beforeSend : function (){
+		                loadingModal.show();
+		            }
 				}).done(function() {
-				  loadingModal.hide();
+					loadingModal.hide();
 				});
 			}
 			/*]]>*/
