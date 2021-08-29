@@ -1,7 +1,6 @@
 FROM openjdk:16-jdk-alpine
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+WORKDIR /usr/src/app
+COPY . .
+RUN ./mvnw package
+ENTRYPOINT ["./mvnw", "spring-boot:run"]
 
