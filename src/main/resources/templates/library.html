@@ -190,6 +190,7 @@
 		}
 
 		function importPlaylists() {
+			var startTime = performance.now();
 			var loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'), {
   				keyboard: false
 			});
@@ -221,6 +222,9 @@
 		            }
 				}).done(function() {
 					loadingModal.hide();
+					var endTime = performance.now();
+					console.log("Runtime(ms)")
+					console.log(endTime-startTime);
 				});
 			}
 			/*]]>*/
