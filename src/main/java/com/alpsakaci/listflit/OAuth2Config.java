@@ -1,5 +1,7 @@
 package com.alpsakaci.listflit;
 
+import com.alpsakaci.listflit.config.SpotifyConfig;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +14,12 @@ import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 
 @Configuration
 public class OAuth2Config extends WebSecurityConfigurerAdapter {
+
+	private SpotifyConfig spotifyConfig;
+
+	public OAuth2Config(SpotifyConfig spotifyConfig) {
+		this.spotifyConfig = spotifyConfig;
+	}
 	
 	private static final String[] PUBLIC_MATCHERS = {
             "/",
@@ -41,8 +49,8 @@ public class OAuth2Config extends WebSecurityConfigurerAdapter {
 		// @formatter:off
 		return ClientRegistration
 				.withRegistrationId("spotify")
-				.clientId("your-client-id")
-				.clientSecret("your-client-secret")
+				.clientId(spotifyConfig.getClientId())
+				.clientSecret(spotifyConfig.getClientSecret())
 				.clientAuthenticationMethod(ClientAuthenticationMethod.BASIC)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")

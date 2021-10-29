@@ -31,7 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-OAuth2LoginSecurityConfig.java
 /node
 /node_modules
 npm-debug.log*
