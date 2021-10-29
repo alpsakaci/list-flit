@@ -7,10 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import redis.clients.jedis.Jedis;
-
 import com.alpsakaci.listflit.Playlist;
 import com.alpsakaci.listflit.Track;
+import com.alpsakaci.listflit.cache.RedisCache;
 import com.alpsakaci.listflit.spotify.SpotifyApiService;
 import com.alpsakaci.listflit.spotify.model.SpotifyPlaylist;
 import com.alpsakaci.listflit.spotify.model.SpotifyTrack;
@@ -21,31 +20,30 @@ public class SpotifyMigrator implements PlaylistMigrator {
 	@Autowired
 	private SpotifyApiService spotifyApi;
 
+	@Autowired
+	private RedisCache cache;
+
 	@Override
 	public SpotifyTrack getTrack(Track track) {
 		String query = track.getName() + " " + track.getArtist() + " " + track.getAlbum();
-		query.replaceAll(" ", "+");
-		
-		Jedis jedis = new Jedis();
-		String trackUri = jedis.get(query);
+		query = query.replaceAll(" ", "+");
+		String trackUri = cache.getJedis().get(query);
 
-		if(trackUri != null) {
+		if (trackUri != null) {
 			SpotifyTrack spotifyTrack = new SpotifyTrack();
 			spotifyTrack.setUri(trackUri);
 			System.out.println("Importing track from Redis cache.");
-			jedis.close();
 
 			return spotifyTrack;
 		} else {
 			SpotifyTrack st = spotifyApi.searchTrack(query);
 			if (st != null) {
 				System.out.println("Caching track.");
-				jedis.set(query, st.getUri());
+				cache.getJedis().set(query, st.getUri());
 			}
-			jedis.close();
 
 			return st;
-		}		
+		}
 	}
 
 	@Override
