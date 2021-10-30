@@ -1,4 +1,4 @@
-package com.alpsakaci.listflit;
+package com.alpsakaci.listflit.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

@@ -1,4 +1,4 @@
-package com.alpsakaci.listflit;
+package com.alpsakaci.listflit.common;
 
 public interface Track {
 	

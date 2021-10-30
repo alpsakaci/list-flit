@@ -7,9 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alpsakaci.listflit.Playlist;
-import com.alpsakaci.listflit.Track;
 import com.alpsakaci.listflit.cache.RedisCache;
+import com.alpsakaci.listflit.common.Playlist;
+import com.alpsakaci.listflit.common.Track;
 import com.alpsakaci.listflit.spotify.SpotifyApiService;
 import com.alpsakaci.listflit.spotify.model.SpotifyPlaylist;
 import com.alpsakaci.listflit.spotify.model.SpotifyTrack;

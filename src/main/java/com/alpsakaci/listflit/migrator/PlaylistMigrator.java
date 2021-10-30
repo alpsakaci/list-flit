@@ -2,8 +2,8 @@ package com.alpsakaci.listflit.migrator;
 
 import java.util.List;
 
-import com.alpsakaci.listflit.Playlist;
-import com.alpsakaci.listflit.Track;
+import com.alpsakaci.listflit.common.Playlist;
+import com.alpsakaci.listflit.common.Track;
 
 public interface PlaylistMigrator {
 

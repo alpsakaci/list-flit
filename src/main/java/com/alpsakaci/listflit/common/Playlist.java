@@ -1,4 +1,4 @@
-package com.alpsakaci.listflit;
+package com.alpsakaci.listflit.common;
 
 import java.util.List;
 import java.util.Map;

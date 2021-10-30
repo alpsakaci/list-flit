@@ -1,6 +1,6 @@
 package com.alpsakaci.listflit.spotify.model;
 
-import com.alpsakaci.listflit.Track;
+import com.alpsakaci.listflit.common.Track;
 
 public class SpotifyTrack implements Track {
 

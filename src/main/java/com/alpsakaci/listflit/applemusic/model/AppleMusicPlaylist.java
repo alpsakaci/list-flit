@@ -3,8 +3,8 @@ package com.alpsakaci.listflit.applemusic.model;
 import java.util.List;
 import java.util.Map;
 
-import com.alpsakaci.listflit.Playlist;
-import com.alpsakaci.listflit.Track;
+import com.alpsakaci.listflit.common.Playlist;
+import com.alpsakaci.listflit.common.Track;
 
 import java.util.HashMap;
 import java.util.LinkedList;

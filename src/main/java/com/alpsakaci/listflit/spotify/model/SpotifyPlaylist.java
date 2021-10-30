@@ -3,7 +3,7 @@ package com.alpsakaci.listflit.spotify.model;
 import java.util.List;
 import java.util.Map;
 
-import com.alpsakaci.listflit.Playlist;
+import com.alpsakaci.listflit.common.Playlist;
 
 public class SpotifyPlaylist implements Playlist {
 

@@ -1,6 +1,6 @@
 package com.alpsakaci.listflit.applemusic.model;
 
-import com.alpsakaci.listflit.Track;
+import com.alpsakaci.listflit.common.Track;
 
 public class AppleMusicTrack implements Track {
 

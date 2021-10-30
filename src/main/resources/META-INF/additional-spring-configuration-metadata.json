@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "spotify.client.secret",
+    "type": "java.lang.String",
+    "description": "Spotify API Client Secret"
+  },
+  {
+    "name": "spotify.client.id",
+    "type": "java.lang.String",
+    "description": "Spotify API Client ID"
+  }
+]}
