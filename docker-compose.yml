@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+    list-flit:
+      container_name: list-flit
+      restart: always
+      build: .
+      ports:
+        - 8080:8080
+      environment:
+        - JAVA_OPTS=${JAVA_OPTS}
+
+    redis:
+      container_name: list-flit-redis
+      image: redis
+      restart: always
+      ports:
+        - 6379:6379
+      restart: always
